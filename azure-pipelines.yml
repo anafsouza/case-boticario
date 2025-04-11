@@ -1,0 +1,58 @@
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  pythonVersion: '3.10'
+  dockerImageName: 'fastapi-service'
+
+stages:
+  - stage: Install_and_Test
+    displayName: "Install Dependencies and Run Tests"
+    jobs:
+      - job: Install_and_Test
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+
+          - script: |
+              python -m venv venv
+              source venv/bin/activate
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              pip install pytest
+            displayName: "Set up Python environment and install dependencies"
+
+          - script: |
+              pytest tests/
+            displayName: "Run Tests"
+
+  - stage: Build_and_Push
+    displayName: "Build and Push Docker Image"
+    dependsOn: Install_and_Test
+    condition: succeeded()
+    jobs:
+      - job: Build_and_Push
+        steps:
+          - task: DockerInstaller@0
+            inputs:
+              dockerVersion: '20.10.7'
+
+          - script: |
+              docker build -t $(dockerImageName):$(Build.BuildId) .
+            displayName: "Build Docker Image"
+
+          # Opcional: Push para Docker Hub ou ACR
+          # - task: Docker@2
+          #   inputs:
+          #     containerRegistry: 'yourServiceConnection'
+          #     repository: 'your-org/fastapi-service'
+          #     command: 'push'
+          #     tags: |
+          #       $(Build.BuildId)

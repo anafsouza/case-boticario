@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 router = APIRouter()
 
 
-@router.get("/health", summary="General Health Check", tags=["Health"])
+@router.get("/health", tags=["Health"])
 async def health_check():
     """
     General health check endpoint.
@@ -19,7 +19,7 @@ async def health_check():
     return JSONResponse(content={"status": "ok"})
 
 
-@router.get("/health/liveness", summary="Liveness Probe", tags=["Health"])
+@router.get("/health/liveness", tags=["Health"])
 async def liveness_probe():
     """
     Liveness probe endpoint.
@@ -34,18 +34,13 @@ async def liveness_probe():
     return JSONResponse(content={"status": "alive"})
 
 
-@router.get("/health/readiness", summary="Readiness Probe", tags=["Health"])
+@router.get("/health/readiness", tags=["Health"])
 async def readiness_probe():
     """
     Readiness probe endpoint.
 
     This endpoint is used to determine if the application is ready to handle requests.
     It is useful for checking if dependencies like databases or external services are available.
-
-    In a real application, this would include checks like:
-    - Database connectivity
-    - Cache system availability
-    - Third-party service status
 
     Returns:
         JSONResponse: A JSON object indicating the app is ready.

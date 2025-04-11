@@ -1,6 +1,6 @@
 from typing import List, Dict
-from redis_connection import RedisClient
-# TODO: fix import 
+from ..config.redis_connection import RedisClient
+
 
 def get_predictions(model_name: str, client_codes: List[str], redis_client: RedisClient) -> Dict[str, dict]:
     """

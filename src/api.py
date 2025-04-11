@@ -1,19 +1,21 @@
+import os
 from fastapi import APIRouter
-from health_checks import router as health_router
-from schemas.models import PredictionRequest, PredictionResponse
+from app.schemas.models import PredictionRequest, PredictionResponse
+from app.model_serving.get_client_data import get_predictions
+from app.config.redis_connection import RedisClient
 
-# Create the main FastAPI application instance
-app = FastAPI(
-    title="Health Check API",
-    description="A basic FastAPI application with liveness and readiness endpoints.",
-    version="1.0.0"
-)
 
-# Include the health check router
+# Redis connection
+host = os.getenv("REDIS_HOST")
+password = os.getenv("REDIS_PASSWORD")
+
+redis_client = RedisClient(host=host, password=password)
+
+# Include the predict router
 api_v1 = APIRouter()
 
 
-@api_v1.post("/predict", response_model=PredictionResponse, summary="Get Predictions by Model and Codes", tags=["Predictions"])
+@api_v1.post("/predict", response_model=PredictionResponse, tags=["Predictions"])
 async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
     """
     Retrieve predictions for a list of customer codes based on a specified model.
@@ -28,8 +30,6 @@ async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
         PredictionResponse: A dictionary mapping each code to its corresponding prediction data,
         or None if the key does not exist in Redis.
     """
-    if not request.codes:
-        raise HTTPException(status_code=400, detail="List of codes cannot be empty.")
 
     predictions = get_predictions(
         model_name=request.model_name,
