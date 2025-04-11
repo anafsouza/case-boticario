@@ -64,13 +64,13 @@ This repository is organized as follows:
 - Run the container:
 
     ```bash
-    docker run -d -p 8000:8000 fastapi-service
+    docker run -d -p 5000:5000 fastapi-service
     ```
 
 - Access the automatic documentation:
 
     ```
-    http://localhost:8000/docs
+    http://localhost:5000/docs
     ```
 
 ## Local Installation
@@ -93,7 +93,7 @@ This repository is organized as follows:
 - Install dependencies:
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r src/requirements.txt
     ```
 
 - Run the application:
@@ -131,14 +131,3 @@ This repository is organized as follows:
 
 See [`CHANGELOG.md`](./CHANGELOG.md) for version history and release notes.
 
-## Contributing
-
-- Contributions are welcome!
-- To contribute:
-    - Open an issue for bugs or feature requests
-    - Fork the repository
-    - Create a pull request with your changes
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
