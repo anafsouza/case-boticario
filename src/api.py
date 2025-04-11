@@ -30,10 +30,13 @@ async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
         PredictionResponse: A dictionary mapping each code to its corresponding prediction data,
         or None if the key does not exist in Redis.
     """
+    
+    model_name = request.model_name
+    codes = request.codes
 
     predictions = get_predictions(
-        model_name=request.model_name,
-        codes=request.codes,
+        model_name=model_name,
+        codes=codes,
         redis_client=redis_client
     )
 
