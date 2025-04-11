@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 from health_checks import router as health_router
 from schemas.models import PredictionRequest, PredictionResponse
 
@@ -10,10 +10,10 @@ app = FastAPI(
 )
 
 # Include the health check router
-app.include_router(health_router)
+api_v1 = APIRouter()
 
 
-@app.post("/predict", response_model=PredictionResponse, summary="Get Predictions by Model and Codes", tags=["Predictions"])
+@api_v1.post("/predict", response_model=PredictionResponse, summary="Get Predictions by Model and Codes", tags=["Predictions"])
 async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
     """
     Retrieve predictions for a list of customer codes based on a specified model.
