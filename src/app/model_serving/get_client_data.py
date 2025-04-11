@@ -21,5 +21,5 @@ def get_predictions(model_name: str, client_codes: List[str], redis_client: Redi
         if value is not None:
             predictions[code] = value
         else:
-            predictions[code] = None  # or "not found" if you prefer
+            predictions[code] = None  
     return predictions
