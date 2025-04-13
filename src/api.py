@@ -14,12 +14,16 @@ async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
     This endpoint queries a Redis instance for prediction data stored under keys
     in the format `{model_name}:{code}`.
 
+    If the list of codes is empty, predictions for all available keys matching
+    the model name prefix will be returned.
+
     Args:
         request (PredictionRequest): A request body containing the model name and list of customer codes.
 
     Returns:
-        PredictionResponse: A dictionary mapping each code to its corresponding prediction data,
-        or None if the key does not exist in Redis.
+        PredictionResponse: A response object containing a list of dictionaries.
+        Each dictionary maps a full Redis key to its corresponding prediction data,
+        or None if the key is not found or the value is missing.
     """
     
     model_name = request.model_name
