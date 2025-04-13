@@ -27,7 +27,7 @@ async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
 
     predictions = get_predictions(
         model_name=model_name,
-        codes=codes
+        client_codes=codes
     )
 
     return PredictionResponse(predictions=predictions)
