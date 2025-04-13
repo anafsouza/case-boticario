@@ -1,7 +1,7 @@
 import os
 from fastapi import APIRouter
 from app.schemas.models import PredictionRequest, PredictionResponse
-from app.model_serving.get_client_data import get_predictions
+from app.model_serving.get_client_data import get_predictions, get_predictions_example
 from app.config.redis_connection import RedisClient
 
 

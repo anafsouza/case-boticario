@@ -27,11 +27,16 @@ class PredictionRequest(BaseModel):
 
 class PredictionResponse(BaseModel):
     """
-    Schema for response body containing predictions.
+    Schema for response body containing a list of predictions.
 
     Attributes:
-        predictions (Dict[str, Optional[str]]): Mapping of customer code to prediction result.
+        predictions (List[Dict[str, Optional[Any]]]): 
+            A list where each item maps a key (model_name:client_code) to its prediction result.
     """
-    predictions: Dict[str, Optional[str]] = Field(
-        ..., example={"model_name:123": {"score": 0.98}, "model_name:456": {"score": None}}
+    predictions: List[Dict[str, Optional[Any]]] = Field(
+        ..., 
+        example=[
+            {"model_name:123": {"score": 0.98}}, 
+            {"model_name:456": None}
+        ]
     )
