@@ -1,15 +1,6 @@
-import os
 from fastapi import APIRouter
 from app.schemas.models import PredictionRequest, PredictionResponse
 from app.model_serving.get_client_data import get_predictions, get_predictions_example
-from app.config.redis_connection import RedisClient
-
-
-# Redis connection
-host = os.getenv("REDIS_HOST")
-password = os.getenv("REDIS_PASSWORD")
-
-redis_client = RedisClient(host=host, password=password)
 
 # Include the predict router
 api_v1 = APIRouter()
@@ -36,8 +27,7 @@ async def fetch_predictions(request: PredictionRequest) -> PredictionResponse:
 
     predictions = get_predictions(
         model_name=model_name,
-        codes=codes,
-        redis_client=redis_client
+        codes=codes
     )
 
     return PredictionResponse(predictions=predictions)
