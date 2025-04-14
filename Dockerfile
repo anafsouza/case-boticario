@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.10
 
 
 # Upgrade libraries
@@ -22,4 +22,4 @@ USER app
 
 
 # Execute container
-CMD ["python" "api_main.py"]
+CMD ["sh", "-c", "python api_main.py"]
