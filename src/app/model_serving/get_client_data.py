@@ -1,7 +1,7 @@
 import os
 import logging
 from typing import List, Dict, Any
-from .example_data import EXAMPLE_DATA
+from .example_data import EXAMPLE_DATA, EXAMPLE_DATA_FORMATTED
 from ..config.redis_connection import RedisClient
 
 
@@ -77,7 +77,7 @@ def get_predictions_example(model_name: str, client_codes: List[str]) -> List[Di
     """
     if not client_codes:
         client_codes_filter = [
-            key.lstrip(f"{model_name}:") for key in EXAMPLE_DATA.keys() if key.startswith(f"{model_name}:")
+            key.lstrip(f"{model_name}:") for key in EXAMPLE_DATA_FORMATTED.keys() if key.startswith(f"{model_name}:")
         ]
     else:
         client_codes_filter = client_codes
@@ -87,7 +87,7 @@ def get_predictions_example(model_name: str, client_codes: List[str]) -> List[Di
     for code in client_codes_filter:
         key = f"{model_name}:{code}"
         predictions = {}
-        value = EXAMPLE_DATA.get(key)
+        value = EXAMPLE_DATA_FORMATTED.get(key)
 
         predictions[key] = value if value is not None else None
         list_of_predictions.append(predictions)
