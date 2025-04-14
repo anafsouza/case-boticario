@@ -58,19 +58,19 @@ This repository is organized as follows:
 - Build the image:
 
     ```bash
-    docker build -t fastapi-service .
+    docker build -t model-showcase .
     ```
 
 - Run the container:
 
     ```bash
-    docker run -d -p 5000:5000 fastapi-service
+    docker run -d -p 0.0.0.0:5000:5000 model-showcase:latest
     ```
 
 - Access the automatic documentation:
 
     ```
-    http://localhost:5000/docs
+    http://0.0.0.0:5000/docs
     ```
 
 ## Local Installation
