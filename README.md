@@ -99,7 +99,7 @@ This repository is organized as follows:
 - Run the application:
 
     ```bash
-    uvicorn src.app.api_main:app --reload
+  python src/api_main.py
     ```
 
 ## Running Tests
