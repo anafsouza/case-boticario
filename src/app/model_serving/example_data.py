@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 
+
 def event_format(data, key):
     data_formatted = {
         "entity": f"{key.split(":")[1]}",
@@ -15,10 +16,10 @@ def event_format(data, key):
     return data_formatted
     
     
-    
-    
-
 def final_data(example_data):
+    """
+    Format response data.
+    """
     formatted_data = {}
    
     for key in example_data.keys():
@@ -26,7 +27,6 @@ def final_data(example_data):
           
     return formatted_data
     
-
 
 EXAMPLE_DATA = {
     "model_recommendation:123": {"predict": "product_A", "score": 0.92},   
