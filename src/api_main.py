@@ -5,7 +5,7 @@ from api import api_v1
 
 # Create the main FastAPI application instance
 app = FastAPI(
-    title="Models Showcase API",
+    title="Model Store API",
     description="A basic FastAPI application for general model serving.",
     version="1.0.0",
     docs_url="/docs"
